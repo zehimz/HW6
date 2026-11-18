@@ -31,19 +31,17 @@ function buildLoanRows(data) {
       emailLabel = email;
     }
 
-    let status;
-    let remainingDays;
-    let overdueDays;
+    let status = "on-time";
+    let remainingDays = loanDays - elapsedDays;
+    let overdueDays = 0;
 
     if (returned) {
       status = "returned";
       remainingDays = 0;
       overdueDays = 0;
-    } else if (elapsedDays <= loanDays) {
-      status = "on-time";
-      remainingDays = loanDays - elapsedDays;
-      overdueDays = 0;
-    } else {
+    }
+
+    if (!returned && elapsedDays > loanDays) {
       status = "overdue";
       remainingDays = 0;
       overdueDays = elapsedDays - loanDays;
